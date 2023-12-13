@@ -14,6 +14,7 @@ public class Main {
     static int[] seets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}; 
     static long[] IDarr = new long[0]; 
     static long[] IDarrWindow = new long[0];
+    static String[] names = new String[0];
 
 
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class Main {
         System.out.println("se tillgängliga platser:  S");
         System.out.println("visa vinsten på biljätter:  V");
         System.out.println("Avsluta programmet:  X");
+        System.out.println("Sortera array: Y");
         System.out.print("input: ");
         String ans = keyboard.nextLine();
 
@@ -116,6 +118,10 @@ public class Main {
             System.out.println(moneyEarned);
         } else if (ans.equalsIgnoreCase("X")) {
             shouldBeClosed = true;
+        } else if (ans.equalsIgnoreCase("S")) {
+            concat(IDarrWindow, IDarr);
+            sort(IDarr, normalSeets);
+            System.out.println("Array sorterad!");
         } else {
             System.out.print("\n");
             System.out.println("ERROR! inte gilltigt alternativ!");
@@ -189,6 +195,35 @@ public class Main {
         return shortArr;    
     }
 
+    // ----------------------------------------------------------------------------
+    // serves same purpose as previous push but is used for names
+    static String[] pushStr(String[] arr, String push) {
+        String[] longArr = new String[arr.length + 1];
+        for (int i = 0; i < arr.length; i++) {
+            longArr[i] = arr[i];
+        }
+        longArr[arr.length] = push;
+        return longArr;
+    }
+
+    // same as long pop
+    static String[] popStr(String[] arr, int index) {
+        // makes sure we do not for example try to access a negative index or going out of bounds
+        if (arr == null || index < 0 || index >= arr.length) {
+            return arr;
+        }
+        String[] shortArr = new String[arr.length - 1];
+        for (int i = 0, j = 0; i < arr.length; i++) {
+            if (i == index) {
+                continue;
+            }
+            shortArr[j++] = arr[i];
+        }
+        return shortArr;    
+    }
+
+    //------------------------------------------------------------------------------
+
     static void sort(long[] arr, int n) {
         long temp;
         boolean isSwapped;
@@ -210,6 +245,26 @@ public class Main {
     
         }
 
+    }
+
+
+    static long[] concat(long[] a, long[] b) {
+
+        int length = a.length + b.length;
+
+        long[] result = new long[length];
+        int pos = 0;
+        for (int i = 0; i < a.length; i++) {
+            result[pos] = i;
+            pos++;
+        }
+
+        for (int i = 0; i < b.length; i++) {
+            result[pos] = i;
+            pos++;
+        }
+
+        return result;
     }
 }
 
