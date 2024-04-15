@@ -2,15 +2,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    static int totalSeets = 20;
-    static int windowSeets = 10;
-    static int normalSeets = 10;
-    static long ID;
-
-    static double priceAdult = 299.9;
-    static double priceChild = 149.9;
-    static double moneyEarned = 0;
-
     static int[] seets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}; 
     static long[] IDarr = new long[0]; 
     static long[] IDarrWindow = new long[0];
@@ -18,7 +9,15 @@ public class Main {
 
 
     public static void main(String[] args) {
-    
+
+        final int totalSeets = 20;
+        final int windowSeets = 10;
+        final int normalSeets = 10;
+        long ID;
+
+        double priceAdult = 299.9;
+        double priceChild = 149.9;
+        double moneyEarned = 0;
         Scanner keyboard = new Scanner(System.in);
         boolean shouldBeClosed = false;
 
@@ -51,18 +50,18 @@ public class Main {
                 
                 if (ans.equalsIgnoreCase("N")) {
                     if (ID < 20050101) {
-                        assignSeetviaID(); // pushes user value to the array
+                        assignSeetviaID(totalSeets, normalSeets, ID, windowSeets); // pushes user value to the array
                         moneyEarned += priceAdult;     
                     } else {
-                        assignSeetviaID();
+                        assignSeetviaID(totalSeets, normalSeets, ID, windowSeets);
                         moneyEarned += priceChild;
                     }
                 } else if (ans.equalsIgnoreCase("W")) {
                     if (ID < 20050101) {
-                        assignWindowSeetviaID(); // pushes user value to the array
+                        assignWindowSeetviaID(totalSeets, normalSeets, ID, windowSeets); // pushes user value to the array
                         moneyEarned += priceAdult;     
                     } else {
-                        assignWindowSeetviaID();
+                        assignWindowSeetviaID(totalSeets, normalSeets, ID, windowSeets);
                         moneyEarned += priceChild;
                     }
                 } else {
@@ -73,7 +72,7 @@ public class Main {
 
                 System.out.println("\n\n\n\n\n");
                 System.out.println("boka en till plats eller lämna? Skriv Y för att fortsätta!");
-                System.out.print("input: ");
+                System.out.print("input: ");    
                 ans = keyboard.nextLine();
                 
                 if (ans.equalsIgnoreCase("Y")) {
@@ -126,11 +125,11 @@ public class Main {
             System.out.print("\n");
             System.out.println("ERROR! inte gilltigt alternativ!");
             System.out.print("\n");
+            }
         }
-    }
-    keyboard.close();
+        keyboard.close();
 
-    }
+        }
 
     // draws a diagram of the bus seet layout 
     static void seetAmount() {
@@ -142,7 +141,7 @@ public class Main {
     }
 
     // will assign a seet based of the user input
-    static void assignSeetviaID() {
+    static void assignSeetviaID(int totalSeets, int normalSeets, long ID, int windowSeets) {
         if (totalSeets > 0 && normalSeets > 0) {
             IDarr = push(IDarr, ID);
             totalSeets--;
@@ -157,7 +156,7 @@ public class Main {
 
     
     // will assign a window seet based of the user input
-    static void assignWindowSeetviaID() {
+    static void assignWindowSeetviaID(int totalSeets, int normalSeets, long ID, int windowSeets) {
         if (totalSeets > 0 && windowSeets > 0) {
             IDarrWindow = push(IDarr, ID);
             totalSeets--;
